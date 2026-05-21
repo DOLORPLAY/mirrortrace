@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MIRRORTRACE // NODE 3</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+/* glitch text */
+.glitch {
+    position: relative;
+    font-size: 14px;
+    animation: flicker 1.5s infinite;
+}
+
+@keyframes flicker {
+    0% {opacity:1;}
+    50% {opacity:0.6;}
+    100% {opacity:1;}
+}
+
+/* matrix background */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* main box */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:500px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.9);
+    padding:20px;
+    text-align:left;
+}
+
+/* log area */
+#logs{
+    height:200px;
+    overflow:hidden;
+    border:1px solid #00ff66;
+    padding:10px;
+    margin-top:10px;
+}
+
+/* blinking cursor */
+.cursor {
+    display:inline-block;
+    width:10px;
+    background:#00ff66;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%{opacity:1;}
+    50%{opacity:0;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+    <h2 class="glitch">MIRRORTRACE // NODE 3</h2>
+
+    <p class="glitch">SYSTEM STATUS: █ CORRUPTED █</p>
+
+    <div id="logs"></div>
+
+    <p class="glitch">PRISMLOCK FRACTURE DETECTED<span class="cursor"></span></p>
+</div>
+
+<script>
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="MIRRORTRACEPRISMLOCKVOIDERROR".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+
+let drops=Array(Math.floor(columns)).fill(1);
+
+function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+            drops[i]=0;
+
+        drops[i]++;
+    }
+}
+setInterval(draw,35);
+
+/* LOG SYSTEM */
+const logs = document.getElementById("logs");
+
+const messages = [
+"SYNCING NODE 2 → NODE 3...",
+"ACCESS KEY VERIFIED: PRISMLOCK",
+"WARNING: DATA FRACTURE DETECTED",
+"PRISM LAYER UNSTABLE",
+"████ CORRUPTION SPREADING ████",
+"RECONSTRUCTION FAILED",
+"UNKNOWN PROCESS INTERCEPTED",
+"DATA STREAM DIVIDED INTO FRAGMENTS"
+];
+
+let i = 0;
+
+function addLog(){
+    if(i < messages.length){
+        let line = document.createElement("div");
+        line.innerText = "> " + messages[i];
+        logs.appendChild(line);
+
+        logs.scrollTop = logs.scrollHeight;
+        i++;
+    } else {
+        let line = document.createElement("div");
+        line.innerText = "> NODE STABILITY: 0%";
+        logs.appendChild(line);
+    }
+}
+
+setInterval(addLog, 1200);
+</script>
+
+</body>
+</html>
