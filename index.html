@@ -29,7 +29,6 @@ canvas {
     width: 420px;
     border: 2px solid #003300;
     background: rgba(0, 0, 0, 0.85);
-
     animation: flicker 3s infinite;
 }
 
@@ -56,7 +55,6 @@ button {
     margin: 10px;
     font-family: monospace;
     cursor: pointer;
-
     animation: float 4s ease-in-out infinite;
 }
 
@@ -65,36 +63,56 @@ button:hover {
     color: black;
 }
 
-/* 👁️ observer */
+/* 👁️ hidden observer */
 .observer {
-    color: #000; /* повністю зливається */
+    color: #000;
 }
 
-/* 🌫️ рване “плавання” */
+/* 🌫️ float effect */
 .float {
     animation: float 5s ease-in-out infinite;
 }
 
+/* 🔑 hidden input */
+#secretInput {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    opacity: 0.03;
+    background: transparent;
+    border: none;
+    color: #00ff66;
+}
+
+#secretInput:focus {
+    opacity: 0.3;
+    outline: none;
+}
+
+/* animations */
 @keyframes float {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-4px); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
     100% { transform: translateY(0px); }
 }
 
-/* ⚡ flicker (ефект старого монітора) */
 @keyframes flicker {
-    0%   { opacity: 1; }
-    2%   { opacity: 0.6; }
-    4%   { opacity: 1; }
-    50%  { opacity: 0.95; }
-    52%  { opacity: 0.7; }
-    54%  { opacity: 1; }
+    0% { opacity: 1; }
+    2% { opacity: 0.6; }
+    4% { opacity: 1; }
+    50% { opacity: 0.95; }
+    52% { opacity: 0.7; }
+    54% { opacity: 1; }
     100% { opacity: 1; }
 }
 </style>
 </head>
 
 <body>
+
+<!-- 🔑 hidden input -->
+<input id="secretInput" placeholder="">
 
 <canvas id="matrix"></canvas>
 
@@ -109,8 +127,7 @@ button:hover {
         <h2 class="float">SYSTEM ONLINE</h2>
         <p class="float">STATUS: OBSERVATION ACTIVE</p>
 
-        <!-- 👁️ прихований елемент -->
-        <p class="observer">observer</p>
+        <p class="observer">voidnoise23</p>
 
         <hr style="border:1px solid #003300">
 
@@ -127,6 +144,20 @@ button:hover {
 </div>
 
 <script>
+/* 🔑 secret input logic */
+const input = document.getElementById("secretInput");
+const SECRET_CODE = "774";
+
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (input.value === SECRET_CODE) {
+            window.location.href = "404.html";
+        } else {
+            input.value = "";
+        }
+    }
+});
+
 /* 🌧️ MATRIX EFFECT */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
@@ -134,7 +165,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let letters = "01MIRRORTRACEOBSERVE".split("");
+let letters = "01MIRRORTRACEVOIDNOISE23".split("");
 let fontSize = 14;
 let columns = canvas.width / fontSize;
 
