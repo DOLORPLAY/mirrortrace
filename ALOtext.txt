@@ -1,0 +1,17 @@
+MIRRORTRACE // INTERNAL NOTE
+
+FILE STATUS: UNINDEXED
+
+Not all nodes are required to contain data that can be reconstructed into a complete structure.
+
+Some records exist only as observational anchors within the system.
+
+If you are attempting to extract meaning from every file, you are exceeding the intended access model.
+
+███████████ is not part of the ██████████ sequence.
+
+It is used only as a system calibration layer.
+
+Do not correlate independent fragments.
+
+END NOTE
