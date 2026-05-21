@@ -2,192 +2,155 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MIRRORTRACE SYSTEM</title>
+<title>MIRRORTRACE // NODE 1</title>
 
 <style>
-body {
-    margin: 0;
-    background: #000;
-    font-family: "Courier New", monospace;
-    color: #00ff66;
-    overflow: hidden;
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
 }
 
-/* 🌧️ matrix canvas */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* 🌧️ MATRIX */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
 }
 
-/* 🪟 window */
-.window {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 420px;
-    border: 2px solid #003300;
-    background: rgba(0, 0, 0, 0.85);
-    animation: flicker 3s infinite;
+/* 🪟 WINDOW */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:420px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.85);
+    text-align:center;
+    padding:20px;
+
+    z-index:2;
+    animation: float 6s ease-in-out infinite;
 }
 
-/* title */
-.titlebar {
-    background: #003300;
-    color: #00ff66;
-    padding: 5px;
-    font-weight: bold;
+/* 🔑 INPUT */
+#secretInput{
+    position:fixed;
+    top:10px;
+    right:10px;
+
+    width:140px;
+    height:28px;
+
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+
+    font-family:monospace;
+    outline:none;
+
+    z-index:9999;
+    box-shadow:0 0 8px #00ff66;
 }
 
-/* content */
-.content {
-    padding: 20px;
-    text-align: center;
+/* BUTTONS */
+button{
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px 15px;
+    margin:8px;
+    cursor:pointer;
 }
 
-/* buttons */
-button {
-    background: black;
-    border: 1px solid #00ff66;
-    color: #00ff66;
-    padding: 8px 18px;
-    margin: 10px;
-    cursor: pointer;
-    animation: float 4s ease-in-out infinite;
+button:hover{
+    background:#00ff66;
+    color:black;
 }
 
-button:hover {
-    background: #00ff66;
-    color: black;
-}
-
-/* hidden observer replaced */
-.observer {
-    color: #000;
-}
-
-/* visible input (UPDATED) */
-#secretInput {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-
-    width: 120px;
-    height: 28px;
-
-    background: black;
-    border: 1px solid #00ff66;
-    color: #00ff66;
-
-    font-family: monospace;
-    padding: 2px 6px;
-
-    outline: none;
-
-    box-shadow: 0 0 8px #00ff66;
-}
-
-/* animations */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
-}
-
-@keyframes flicker {
-    0% { opacity: 1; }
-    2% { opacity: 0.6; }
-    4% { opacity: 1; }
-    50% { opacity: 0.95; }
-    52% { opacity: 0.7; }
-    54% { opacity: 1; }
-    100% { opacity: 1; }
+/* FLOAT */
+@keyframes float{
+    0%{transform:translate(-50%,-50%) translateY(0);}
+    50%{transform:translate(-50%,-50%) translateY(-5px);}
+    100%{transform:translate(-50%,-50%) translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔑 INPUT -->
-<input id="secretInput" placeholder="code">
-
 <canvas id="matrix"></canvas>
+
+<input id="secretInput" placeholder="access code">
 
 <div class="window">
 
-    <div class="titlebar">
-        MIRRORTRACE // NODE 1
-    </div>
+    <h2>MIRRORTRACE // NODE 1</h2>
+    <p>system online</p>
+    <p>observation active</p>
 
-    <div class="content">
+    <hr style="border:1px solid #003300">
 
-        <h2>SYSTEM ONLINE</h2>
-        <p>STATUS: OBSERVATION ACTIVE</p>
+    <button onclick="window.location.href='node2.html'">
+        [NEXT PAGE]
+    </button>
 
-        <p class="observer">voidnoise23</p>
-
-        <hr style="border:1px solid #003300">
-
-        <button onclick="window.location.href='404.html'">
-            [NEXT PAGE]
-        </button>
-
-        <button onclick="alert('EXIT GRANTED')">
-            [EXIT]
-        </button>
-
-    </div>
+    <button onclick="alert('EXIT GRANTED')">
+        [EXIT]
+    </button>
 
 </div>
 
 <script>
-/* 🔑 CODE SYSTEM */
-const input = document.getElementById("secretInput");
-const SECRET_CODE = "774";
+/* 🔑 CODE SYSTEM (UPDATED) */
+const input=document.getElementById("secretInput");
 
-input.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        if (input.value === SECRET_CODE) {
-            window.location.href = "404.html";
-        } else {
-            input.value = "";
+input.addEventListener("keydown",function(e){
+    if(e.key==="Enter"){
+        if(input.value==="voidnoise23"){
+            window.location.href="node2.html";
+        }else{
+            input.value="";
         }
     }
 });
 
 /* 🌧️ MATRIX */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let letters = "01MIRRORTRACEVOIDNOISE23".split("");
-let fontSize = 14;
-let columns = canvas.width / fontSize;
+let letters="01MIRRORTRACEVOIDNOISE23".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
 
-let drops = Array(Math.floor(columns)).fill(1);
+let drops=Array(Math.floor(columns)).fill(1);
 
-function draw() {
-    ctx.fillStyle = "rgba(0,0,0,0.07)";
+function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
 
-    ctx.fillStyle = "#00ff66";
-    ctx.font = fontSize + "px monospace";
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
 
-    for (let i = 0; i < drops.length; i++) {
-        let text = letters[Math.floor(Math.random()*letters.length)];
-        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-        if (drops[i]*fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+            drops[i]=0;
 
         drops[i]++;
     }
 }
 
-setInterval(draw, 35);
+setInterval(draw,35);
 </script>
 
 </body>
