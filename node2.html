@@ -51,6 +51,31 @@ button:hover{
     color:black;
 }
 
+/* 💚 ADDED ACCESS BOX */
+.access-box{
+    position:absolute;
+    top:calc(50% + 260px);
+    left:50%;
+    transform:translateX(-50%);
+    width:420px;
+    text-align:center;
+}
+
+.access-box input{
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px;
+    width:70%;
+    margin-top:10px;
+    font-family:"Courier New", monospace;
+}
+
+#msg{
+    margin-top:10px;
+    color:#00ff66;
+}
+
 /* float */
 @keyframes float{
     0%{transform:translate(-50%,-50%) translateY(0);}
@@ -72,6 +97,16 @@ button:hover{
     <button onclick="location.href='log2.html'">DOC.2</button>
     <button onclick="location.href='log3.html'">DOC.3</button>
     <button onclick="location.href='log4.html'">DOC.4</button>
+</div>
+
+<!-- 💚 ADDED INPUT FIELD -->
+<div class="access-box">
+    <p>ACCESS KEY REQUIRED</p>
+
+    <input type="text" id="key" placeholder="enter key...">
+    <button onclick="checkKey()">UNLOCK</button>
+
+    <p id="msg"></p>
 </div>
 
 <script>
@@ -107,6 +142,23 @@ function draw(){
 }
 
 setInterval(draw,35);
+
+/* 💚 ACCESS CHECK */
+function checkKey() {
+    const input = document.getElementById("key").value;
+
+    if (input === "PRISMLOCK") {
+        document.getElementById("msg").innerText =
+            "ACCESS GRANTED // REDIRECTING TO NODE 3";
+
+        setTimeout(() => {
+            window.location.href = "node3.html";
+        }, 1500);
+    } else {
+        document.getElementById("msg").innerText =
+            "ACCESS DENIED";
+    }
+}
 </script>
 
 </body>
