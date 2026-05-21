@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SEGMENT</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:420px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.85);
+    text-align:center;
+    padding:20px;
+
+    animation: float 6s ease-in-out infinite;
+}
+
+button{
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px 15px;
+    margin:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+
+@keyframes float{
+    0%{transform:translate(-50%,-50%) translateY(0);}
+    50%{transform:translate(-50%,-50%) translateY(-5px);}
+    100%{transform:translate(-50%,-50%) translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+
+<h2>SEGMENT TITLE</h2>
+
+<p>
+PUT TEXT HERE<br>
+SYSTEM LOG STYLE<br>
+OBSERVATION ACTIVE
+</p>
+
+<a href="file.txt" download>
+<button>DOWNLOAD FILE</button>
+</a>
+
+<br>
+<button onclick="location.href='node2.html'">[RETURN]</button>
+
+</div>
+
+<script>
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="01MIRRORTRACEVOIDNOISE23".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+
+let drops=Array(Math.floor(columns)).fill(1);
+
+function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+            drops[i]=0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw,35);
+</script>
+
+</body>
+</html>
