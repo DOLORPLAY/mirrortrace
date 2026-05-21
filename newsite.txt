@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MIRRORTRACE SYSTEM</title>
+
+<style>
+body {
+    margin: 0;
+    background: #000;
+    font-family: "Courier New", monospace;
+    color: #00ff66;
+    overflow: hidden;
+}
+
+/* 🌧️ matrix canvas */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* 🪟 “90s window” */
+.window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    border: 2px solid #003300;
+    background: rgba(0, 0, 0, 0.85);
+
+    animation: flicker 3s infinite;
+}
+
+/* 🔳 title bar */
+.titlebar {
+    background: #003300;
+    color: #00ff66;
+    padding: 5px;
+    font-weight: bold;
+}
+
+/* 📦 content */
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+/* 🔘 buttons */
+button {
+    background: black;
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    padding: 8px 18px;
+    margin: 10px;
+    font-family: monospace;
+    cursor: pointer;
+
+    animation: float 4s ease-in-out infinite;
+}
+
+button:hover {
+    background: #00ff66;
+    color: black;
+}
+
+/* 👁️ observer */
+.observer {
+    color: #000; /* повністю зливається */
+}
+
+/* 🌫️ рване “плавання” */
+.float {
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ⚡ flicker (ефект старого монітора) */
+@keyframes flicker {
+    0%   { opacity: 1; }
+    2%   { opacity: 0.6; }
+    4%   { opacity: 1; }
+    50%  { opacity: 0.95; }
+    52%  { opacity: 0.7; }
+    54%  { opacity: 1; }
+    100% { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+
+    <div class="titlebar">
+        MIRRORTRACE // NODE ACCESS
+    </div>
+
+    <div class="content">
+
+        <h2 class="float">SYSTEM ONLINE</h2>
+        <p class="float">STATUS: OBSERVATION ACTIVE</p>
+
+        <!-- 👁️ прихований елемент -->
+        <p class="observer">observer</p>
+
+        <hr style="border:1px solid #003300">
+
+        <button onclick="window.location.href='404.html'">
+            [NEXT PAGE]
+        </button>
+
+        <button onclick="alert('EXIT GRANTED')">
+            [EXIT]
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+/* 🌧️ MATRIX EFFECT */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let letters = "01MIRRORTRACEOBSERVE".split("");
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+for (let i = 0; i < columns; i++) drops[i] = 1;
+
+function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.07)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = "#00ff66";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        let text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+
+        if (drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 35);
+</script>
+
+</body>
+</html>
