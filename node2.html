@@ -147,7 +147,7 @@ setInterval(draw,35);
 function checkKey() {
     const input = document.getElementById("key").value;
 
-    if (input === "PRISMLOCK") {
+    if (input.trim().toUpperCase() === "PRISMLOCK") {
         document.getElementById("msg").innerText =
             "ACCESS GRANTED // REDIRECTING TO NODE 3";
 
@@ -159,6 +159,13 @@ function checkKey() {
             "ACCESS DENIED";
     }
 }
+
+/* 💚 ENTER KEY SUPPORT (ADDED ONLY) */
+document.getElementById("key").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        checkKey();
+    }
+});
 </script>
 
 </body>
