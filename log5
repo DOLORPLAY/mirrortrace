@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CENTRAL PC</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+#terminal{
+    padding:20px;
+    white-space:pre-wrap;
+    height:90vh;
+    overflow-y:auto;
+}
+
+.input-line{
+    display:flex;
+    align-items:center;
+}
+
+.prompt{
+    margin-right:5px;
+}
+
+input{
+    background:black;
+    border:none;
+    outline:none;
+    color:#00ff66;
+    font-family:monospace;
+    width:100%;
+    font-size:16px;
+}
+
+/* blinking cursor */
+.cursor{
+    display:inline-block;
+    width:8px;
+    height:16px;
+    background:#00ff66;
+    animation:blink 0.8s infinite;
+    margin-left:4px;
+}
+
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<script>
+
+const terminal=document.getElementById("terminal");
+
+/* PRINT */
+function print(text=""){
+    const line=document.createElement("div");
+    line.textContent=text;
+    terminal.appendChild(line);
+
+    terminal.scrollTop=terminal.scrollHeight;
+}
+
+/* TYPE EFFECT */
+function typeText(text, callback){
+
+    const line=document.createElement("div");
+
+    terminal.appendChild(line);
+
+    let i=0;
+
+    function type(){
+
+        if(i < text.length){
+
+            line.textContent += text.charAt(i);
+
+            terminal.scrollTop=terminal.scrollHeight;
+
+            i++;
+
+            let speed=Math.random()*30+10;
+
+            /* random lag */
+            if(Math.random()>0.93){
+                speed += 100;
+            }
+
+            setTimeout(type,speed);
+
+        } else {
+
+            if(callback) callback();
+
+        }
+
+    }
+
+    type();
+
+}
+
+/* MULTILINE */
+function typeLines(lines, callback){
+
+    let index=0;
+
+    function next(){
+
+        if(index < lines.length){
+
+            typeText(lines[index], ()=>{
+
+                index++;
+
+                setTimeout(next,80);
+
+            });
+
+        } else {
+
+            if(callback) callback();
+
+        }
+
+    }
+
+    next();
+
+}
+
+/* BOOT */
+const bootLines=[
+"StarCry system processed...",
+"loading kernel...",
+"checking memory sectors...",
+"PRISMLOCK emergency format detected",
+"recovering remaining data...",
+"",
+"DATA SURVIVAL: 45%",
+"",
+"CPU: STARCRY S-9",
+"RAM: 128 MB",
+"STORAGE: 4.2 TB ARCHIVE",
+"",
+"boot successful",
+"",
+"type HELP"
+];
+
+let bootIndex=0;
+
+function boot(){
+
+    if(bootIndex < bootLines.length){
+
+        typeText(bootLines[bootIndex], ()=>{
+
+            bootIndex++;
+
+            setTimeout(boot,250);
+
+        });
+
+    } else {
+
+        createInput();
+
+    }
+
+}
+
+boot();
+
+/* INPUT */
+function createInput(){
+
+    const line=document.createElement("div");
+    line.className="input-line";
+
+    const prompt=document.createElement("span");
+    prompt.className="prompt";
+    prompt.textContent="C:\\MIRRORTRACE>";
+
+    const input=document.createElement("input");
+
+    line.appendChild(prompt);
+    line.appendChild(input);
+
+    terminal.appendChild(line);
+
+    input.focus();
+
+    terminal.scrollTop=terminal.scrollHeight;
+
+    input.addEventListener("keydown",function(e){
+
+        if(e.key==="Enter"){
+
+            const cmd=input.value.toLowerCase();
+
+            input.disabled=true;
+
+            handle(cmd);
+
+        }
+
+    });
+
+}
+
+/* COMMAND HANDLER */
+function handle(cmd){
+
+    switch(cmd){
+
+        case "help":
+
+            typeLines([
+"help - commands list",
+"dir - file list",
+"status - system state",
+"scan - scan system",
+"specs - pc specs",
+"decrypt - decode damaged sectors",
+"trace - trace archive signal"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "dir":
+
+            typeLines([
+"DOC.5",
+"DOC.6",
+"panic.bat",
+"archive.bin",
+"doc7.fragment"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "status":
+
+            typeLines([
+"SYSTEM STATUS: UNSTABLE",
+"PRISMLOCK DAMAGE: ACTIVE",
+"NODE INTEGRITY: 45%"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "scan":
+
+            typeLines([
+"Scanning sectors...",
+"sector 04 corrupted",
+"sector 09 missing",
+"unknown executable detected",
+"panic.bat linked to root access"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "specs":
+
+            typeLines([
+"CENTRAL PC SPECS",
+"",
+"CPU: STARCRY S-9",
+"RAM: 128 MB",
+"ARCHIVE STORAGE: 4.2 TB",
+"NETWORK STATUS: OFFLINE",
+"NODE STATUS: ACTIVE"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "decrypt":
+
+            typeLines([
+"decoding damaged archive sectors...",
+"partial recovery possible",
+"hidden fragments detected"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "trace":
+
+            typeLines([
+"tracking archive signal...",
+"NODE TRACE LOST",
+"mirror layer unstable"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        /* SECRET COMMANDS */
+
+        case "restore":
+
+            typeLines([
+"recovering DOC.7...",
+"12%",
+"29%",
+"44%",
+"67%",
+"91%",
+"RESTORE COMPLETE"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "open doc7":
+
+            typeLines([
+'DOC.7:',
+'',
+'"The system was never intended',
+'to survive PRISMLOCK.',
+'',
+'If recovery is possible —',
+'do not trust Node5."'
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "download":
+
+            typeLines([
+"downloading final_photo.jpg...",
+"download complete"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "override":
+
+            typeLines([
+"WARNING:",
+"override may destroy archive integrity"
+            ], ()=>{
+                createInput();
+            });
+
+        return;
+
+        case "import panic.bat":
+
+            typeLines([
+"importing...",
+"panic.bat executed",
+"ROOT ACCESS GRANTED",
+"NODE5 UNLOCKED"
+            ], ()=>{
+
+                setTimeout(()=>{
+                    window.location.href="node5.html";
+                },3000);
+
+            });
+
+        return;
+
+        default:
+
+            typeLines([
+"unknown command"
+            ], ()=>{
+                createInput();
+            });
+
+    }
+
+}
+</script>
+
+</body>
+</html>
