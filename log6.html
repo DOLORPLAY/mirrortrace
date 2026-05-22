@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DOC.6</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    padding:25px;
+    line-height:1.4;
+}
+
+.corrupt{
+    opacity:0.75;
+}
+
+#panic{
+    color:#ff0033;
+    cursor:pointer;
+    text-decoration:underline;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h3>DOC.6 // ARCHIVE FRAGMENT</h3>
+
+<p class="corrupt">
+SYSTEM REPORT: CORRUPTED MEMORY SEGMENTS DETECTED
+</p>
+
+<p class="corrupt">
+PRISMLOCK event residue still active across lower archive layers.
+Recovery integrity degraded to 12% in sector 04–09.
+</p>
+
+<p class="corrupt">
+ENCRYPTED TRACE BLOCK:
+M R R O R / T R C E / S Y S T E M / F A I L U R E
+</p>
+
+<p class="corrupt">
+NODE STATUS:
+- CORE LINK: BROKEN
+- MEMORY BANK: PARTIAL
+- CENTRAL SYNC: LOST
+- WATCHDOG PROCESS: DISABLED
+</p>
+
+<p class="corrupt">
+UNREADABLE SEGMENT:
+█ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █
+P R I S M L O C K // E R R O R
+█ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █
+</p>
+
+<p class="corrupt">
+WARNING:
+Any attempt to restore full archive structure may trigger system-wide collapse.
+</p>
+
+<hr style="border:1px solid #003300;">
+
+<p>
+Final recovery trigger located at end of file.
+</p>
+
+<p>
+<span id="panic">PANIC</span>
+</p>
+
+<script>
+document.getElementById("panic").onclick = function(){
+
+    const link = document.createElement("a");
+    link.href = "panic.bat";
+    link.download = "panic.bat";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+};
+</script>
+
+</body>
+</html>
