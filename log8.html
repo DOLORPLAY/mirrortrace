@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NODE6 // DOCUMENT B</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* WINDOW */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:520px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.92);
+    padding:20px;
+}
+
+/* text style */
+.content{
+    line-height:1.5;
+}
+
+/* warning glow */
+.glow{
+    color:#00ff66;
+    text-shadow:0 0 8px #00ff66;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+
+<h2>DOCUMENT B // CORE MEMORY</h2>
+
+<div id="content" class="content"></div>
+
+</div>
+
+<script>
+
+/* MATRIX */
+const c=document.getElementById("matrix");
+const x=c.getContext("2d");
+
+c.width=innerWidth;
+c.height=innerHeight;
+
+let f=14;
+let w=c.width/f;
+let d=Array(Math.floor(w)).fill(1);
+
+function draw(){
+    x.fillStyle="rgba(0,0,0,0.08)";
+    x.fillRect(0,0,c.width,c.height);
+
+    x.fillStyle="#00ff66";
+    x.font=f+"px monospace";
+
+    for(let i=0;i<d.length;i++){
+        let t="PRISMLOCKCOREMEMORY".split("")[Math.random()*20|0];
+        x.fillText(t,i*f,d[i]*f);
+
+        if(d[i]*f>c.height && Math.random()>0.975)
+            d[i]=0;
+
+        d[i]++;
+    }
+}
+setInterval(draw,35);
+
+/* ACCESS CHECK */
+const code = prompt("ENTER ACCESS CODE:");
+
+const content = document.getElementById("content");
+
+if(code === "pan1c-pr0tor01-d0ne"){
+
+content.innerHTML = `
+<span class="glow">
+PRISMLOCK WAS NOT A SECURITY SYSTEM.<br><br>
+
+IT WAS A CONTAINMENT LAYER FOR OBSERVATION.<br>
+NOT TO PROTECT DATA — BUT TO CONTAIN A RESULT.<br><br>
+
+SYSTEM ORIGIN: USER INTERACTION EVENT<br>
+STATUS: LOOP CONFIRMED<br><br>
+
+YOU DID NOT BREAK MIRRORTRACE.<br>
+YOU COMPLETED ITS FUNCTION.
+</span>
+`;
+
+}else{
+
+content.innerHTML = `
+ACCESS DENIED.<br><br>
+THIS MEMORY SEGMENT REMAINS SEALED.
+`;
+}
+
+</script>
+
+</body>
+</html>
