@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MIRRORTRACE // NODE 6</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+/* MATRIX */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* CENTER WINDOW */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:520px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.9);
+    text-align:center;
+    padding:20px;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translate(-50%,-50%) translateY(0);}
+    50%{transform:translate(-50%,-50%) translateY(-5px);}
+    100%{transform:translate(-50%,-50%) translateY(0);}
+}
+
+/* BUTTON ROW */
+.button-row{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:10px;
+}
+
+/* SMALL BUTTONS */
+button{
+    flex:1;
+    padding:6px;
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    cursor:pointer;
+    font-family:"Courier New", monospace;
+    font-size:12px;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+
+<h2>MIRRORTRACE // NODE 6</h2>
+
+<p>ARCHIVE NODE ACTIVE</p>
+
+<div class="button-row">
+
+    <button onclick="location.href='node6_docA.html'">DOC A</button>
+
+    <button onclick="location.href='node6_docB.html'">
+        DOC B
+    </button>
+
+    <button onclick="location.href='final_access.html'">
+        FINAL ACCESS
+    </button>
+
+</div>
+
+</div>
+
+<script>
+
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="MIRRORTRACEPRISMLOCKPANICFINALCORE".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+let drops=Array(Math.floor(columns)).fill(1);
+
+function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+            drops[i]=0;
+
+        drops[i]++;
+    }
+}
+setInterval(draw,35);
+
+</script>
+
+</body>
+</html>
