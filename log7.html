@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NODE6 // DOCUMENT A</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* WINDOW */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:520px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.92);
+    padding:20px;
+}
+
+/* main text */
+.content{
+    line-height:1.4;
+}
+
+/* SECRET BINARY */
+.secret{
+    font-size:10px;
+    opacity:0.12;
+    margin-top:18px;
+    word-break:break-all;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+
+<h2>DOCUMENT A // NODE 6 ARCHIVE</h2>
+
+<div class="content">
+PR1SM L4Y3R INTEGRITY: FR4CTURED<br>
+N0D3 SEQU3NC3: UNST4BLE<br>
+M3M0RY C0R3: PARTIAL CORRUPTION<br><br>
+
+ARCHIVE STATUS: OBSERVED<br>
+WATCHDOG: INACTIVE<br><br>
+
+SYSTEM NOTE:<br>
+This data is not encrypted. It is broken by design.
+</div>
+
+<!-- 👁️ SECRET HIDDEN BINARY -->
+<p class="secret">
+01110000 01100001 01101110 00110001 01100011 00101101
+01110000 01110010 00110000 01110100 01101111 01110010 00110000
+01101001 00101101 01100100 00110000 01101110 01100101
+</p>
+
+</div>
+
+<script>
+
+/* MATRIX BACKGROUND */
+const c=document.getElementById("matrix");
+const x=c.getContext("2d");
+
+c.width=innerWidth;
+c.height=innerHeight;
+
+let f=14;
+let w=c.width/f;
+let d=Array(Math.floor(w)).fill(1);
+
+function draw(){
+    x.fillStyle="rgba(0,0,0,0.08)";
+    x.fillRect(0,0,c.width,c.height);
+
+    x.fillStyle="#00ff66";
+    x.font=f+"px monospace";
+
+    for(let i=0;i<d.length;i++){
+        let t="MIRRORTRACEPRISMLOCK".split("")[Math.random()*20|0];
+        x.fillText(t,i*f,d[i]*f);
+
+        if(d[i]*f>c.height && Math.random()>0.975)
+            d[i]=0;
+
+        d[i]++;
+    }
+}
+
+setInterval(draw,35);
+
+</script>
+
+</body>
+</html>
