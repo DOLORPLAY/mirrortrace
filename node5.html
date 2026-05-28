@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MIRRORTRACE // NODE 5</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+}
+
+/* MATRIX */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+/* WINDOW */
+.window{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:420px;
+    border:2px solid #003300;
+    background:rgba(0,0,0,0.9);
+    text-align:center;
+    padding:20px;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translate(-50%,-50%) translateY(0);}
+    50%{transform:translate(-50%,-50%) translateY(-5px);}
+    100%{transform:translate(-50%,-50%) translateY(0);}
+}
+
+input{
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px;
+    width:80%;
+    margin-top:10px;
+    font-family:"Courier New", monospace;
+}
+
+button{
+    margin-top:10px;
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px 15px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+
+#msg{
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="window">
+    <h2>MIRRORTRACE // NODE 5</h2>
+
+    <p>Enter access code</p>
+
+    <input type="text" id="code" placeholder="********">
+    <br>
+    <button onclick="check()">UNLOCK</button>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+/* MATRIX */
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let letters="MIRRORTRACEPRISMLOCKPANICNODE6".split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+let drops=Array(Math.floor(columns)).fill(1);
+
+function draw(){
+    ctx.fillStyle="rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="#00ff66";
+    ctx.font=fontSize+"px monospace";
+
+    for(let i=0;i<drops.length;i++){
+        let text=letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+        if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+            drops[i]=0;
+
+        drops[i]++;
+    }
+}
+setInterval(draw,35);
+
+/* NODE5 LOGIC */
+function check(){
+    const input=document.getElementById("code").value;
+    const msg=document.getElementById("msg");
+
+    if(input === "PR1SM-FR4CTURE-05"){
+        msg.innerText="ACCESS GRANTED // REDIRECTING TO NODE 6";
+
+        setTimeout(()=>{
+            window.location.href="node6.html";
+        },2000);
+
+    } else {
+        msg.innerText="ACCESS DENIED";
+    }
+}
+</script>
+
+</body>
+</html>
